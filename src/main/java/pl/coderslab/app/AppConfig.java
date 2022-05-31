@@ -35,7 +35,7 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
-        emfb.setPersistenceUnitName("workshopHibernate");
+        emfb.setPersistenceUnitName("PersonalFinanceTool");
         return emfb;
     }
 

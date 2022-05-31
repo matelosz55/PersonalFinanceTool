@@ -3,20 +3,16 @@ package pl.coderslab.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "account details")
 public class AccountDetails {
-    // id
-    // user id
-    // account value
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private double accountValue;
     @OneToOne(optional = false)
-    @JoinColumn(name = "users_id")
-    private long userId;
+    @JoinColumn(name = "userId")
+    private User userId;
 
-    public AccountDetails(double accountValue, long userId) {
+    public AccountDetails(double accountValue, User userId) {
         this.accountValue = accountValue;
         this.userId = userId;
     }
@@ -41,11 +37,11 @@ public class AccountDetails {
         this.accountValue = accountValue;
     }
 
-    public long getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 }

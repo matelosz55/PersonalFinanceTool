@@ -9,6 +9,6 @@ public class HomeController {
     @GetMapping("")
     @ResponseBody
     public String home() {
-        return "welcome home!";
+        return "TEST CIPY";
     }
 }
