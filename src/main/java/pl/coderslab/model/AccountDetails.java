@@ -44,4 +44,13 @@ public class AccountDetails {
     public void setUserId(User userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "AccountDetails{" +
+                "id=" + id +
+                ", accountValue=" + accountValue +
+                ", userId=" + userId +
+                '}';
+    }
 }

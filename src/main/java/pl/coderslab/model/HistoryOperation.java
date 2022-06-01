@@ -95,4 +95,17 @@ public class HistoryOperation {
     public void setAccountId(AccountDetails accountId) {
         this.accountId = accountId;
     }
+
+    @Override
+    public String toString() {
+        return "HistoryOperation{" +
+                "id=" + id +
+                ", operationType='" + operationType + '\'' +
+                ", category='" + category + '\'' +
+                ", subcategory='" + subcategory + '\'' +
+                ", operationDate=" + operationDate +
+                ", cashValue=" + cashValue +
+                ", accountId=" + accountId +
+                '}';
+    }
 }
