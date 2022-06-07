@@ -20,13 +20,13 @@ public class HistoryOperation {
     private String operationType;
     private String category;
     private String subcategory;
-    private LocalDateTime operationDate;
+    private String operationDate;
     private double cashValue;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "accountId")
     private AccountDetails accountId;
 
-    public HistoryOperation(long id, String operationType, String category, String subcategory, LocalDateTime operationDate, double cashValue, AccountDetails accountId) {
+    public HistoryOperation(long id, String operationType, String category, String subcategory, String operationDate, double cashValue, AccountDetails accountId) {
         this.id = id;
         this.operationType = operationType;
         this.category = category;
@@ -72,11 +72,11 @@ public class HistoryOperation {
         this.subcategory = subcategory;
     }
 
-    public LocalDateTime getOperationDate() {
+    public String getOperationDate() {
         return operationDate;
     }
 
-    public void setOperationDate(LocalDateTime operationDate) {
+    public void setOperationDate(String operationDate) {
         this.operationDate = operationDate;
     }
 
