@@ -24,16 +24,16 @@ public class HistoryOperation {
     private double cashValue;
     @ManyToOne
     @JoinColumn(name = "accountId")
-    private AccountDetails accountId;
+    private AccountDetails account;
 
-    public HistoryOperation(long id, String operationType, String category, String subcategory, String operationDate, double cashValue, AccountDetails accountId) {
+    public HistoryOperation(long id, String operationType, String category, String subcategory, String operationDate, double cashValue, AccountDetails account) {
         this.id = id;
         this.operationType = operationType;
         this.category = category;
         this.subcategory = subcategory;
         this.operationDate = operationDate;
         this.cashValue = cashValue;
-        this.accountId = accountId;
+        this.account = account;
     }
 
     public HistoryOperation() {
@@ -88,12 +88,12 @@ public class HistoryOperation {
         this.cashValue = cashValue;
     }
 
-    public AccountDetails getAccountId() {
-        return accountId;
+    public AccountDetails getAccount() {
+        return account;
     }
 
-    public void setAccountId(AccountDetails accountId) {
-        this.accountId = accountId;
+    public void setAccount(AccountDetails account) {
+        this.account = account;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class HistoryOperation {
                 ", subcategory='" + subcategory + '\'' +
                 ", operationDate=" + operationDate +
                 ", cashValue=" + cashValue +
-                ", accountId=" + accountId +
+                ", account=" + account +
                 '}';
     }
 }

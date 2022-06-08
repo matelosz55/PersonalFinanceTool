@@ -26,7 +26,7 @@
             <td><c:out value="${historyOperation.subcategory}"/></td>
             <td><c:out value="${historyOperation.operationDate}"/></td>
             <td><c:out value="${historyOperation.cashValue}"/></td>
-            <td><c:out value="${historyOperation.account}"/></td>
+            <td><c:out value="${historyOperation.account.getId}"/></td>
 
         </tr>
     </c:forEach>

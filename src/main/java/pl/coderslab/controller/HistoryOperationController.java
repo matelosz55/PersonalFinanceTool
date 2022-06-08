@@ -6,10 +6,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.model.HistoryOperation;
-import pl.coderslab.model.User;
-import pl.coderslab.repository.HistoryOperationsRepository;
-import pl.coderslab.repository.UserRepository;
+import pl.coderslab.model.*;
+import pl.coderslab.repository.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,11 +16,15 @@ import java.util.List;
 @RequestMapping("/history")
 public class HistoryOperationController {
     private final HistoryOperationsRepository historyOperationsRepository;
-    private final UserRepository userRepository;
+    private final AccountDetailsRepository accountDetailsRepository;
+    private final CategoryRepository categoryRepository;
+    private final SubcategoryRepository subcategoryRepository;
 
-    public HistoryOperationController(HistoryOperationsRepository historyOperationsRepository, UserRepository userRepository) {
+    public HistoryOperationController(HistoryOperationsRepository historyOperationsRepository, UserRepository userRepository, AccountDetailsRepository accountDetailsRepository, CategoryRepository categoryRepository, SubcategoryRepository subcategoryRepository) {
         this.historyOperationsRepository = historyOperationsRepository;
-        this.userRepository = userRepository;
+        this.accountDetailsRepository = accountDetailsRepository;
+        this.categoryRepository = categoryRepository;
+        this.subcategoryRepository = subcategoryRepository;
     }
 
     @GetMapping("/all")
@@ -35,8 +37,12 @@ public class HistoryOperationController {
     @GetMapping("/save")
     public String save(Model model){
         model.addAttribute("historyOperation",new HistoryOperation());
-        List<User> users = userRepository.findAll();
-        model.addAttribute("user",users);
+        List<AccountDetails> accounts = accountDetailsRepository.findAll();
+        List<Categories> categories = categoryRepository.findAll();
+        List<Subcategories> subcategories = subcategoryRepository.findAll();
+        model.addAttribute("accounts",accounts);
+        model.addAttribute("subcategory",subcategories);
+        model.addAttribute("category",categories);
         return "/historyOperations/save";
     }
 

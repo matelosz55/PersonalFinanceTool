@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.model.AccountDetails;
 import pl.coderslab.model.User;
+import pl.coderslab.repository.AccountDetailsRepository;
 import pl.coderslab.repository.UserRepository;
 
 
@@ -19,9 +21,11 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserRepository userRepository;
+    private final AccountDetailsRepository accountDetailsRepository;
 
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, AccountDetailsRepository accountDetailsRepository) {
         this.userRepository = userRepository;
+        this.accountDetailsRepository = accountDetailsRepository;
     }
 
 
@@ -44,6 +48,10 @@ public class UserController {
             return "/users/save";
         }
         userRepository.save(user);
+        AccountDetails accountDetails = new AccountDetails();
+        accountDetails.setAccountValue(0);
+        accountDetails.setUserId(user);
+        accountDetailsRepository.save(accountDetails);
         return "redirect:all";
     }
 
