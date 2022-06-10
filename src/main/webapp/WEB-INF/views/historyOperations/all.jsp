@@ -22,11 +22,11 @@
         <tr>
             <td><c:out value="${historyOperation.id}"/></td>
             <td><c:out value="${historyOperation.operationType}"/></td>
-            <td><c:out value="${historyOperation.category}"/></td>
-            <td><c:out value="${historyOperation.subcategory}"/></td>
+            <td><c:out value="${historyOperation.category.category}"/></td>
+            <td><c:out value="${historyOperation.subcategory.subcategory}"/></td>
             <td><c:out value="${historyOperation.operationDate}"/></td>
             <td><c:out value="${historyOperation.cashValue}"/></td>
-            <td><c:out value="${historyOperation.account}"/></td>
+            <td><c:out value="${historyOperation.account.id}"/></td>
 
         </tr>
     </c:forEach>

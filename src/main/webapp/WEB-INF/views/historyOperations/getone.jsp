@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Users List</title>
+    <title>Single history operation</title>
 </head>
 <body>
 
@@ -15,10 +15,8 @@
     <th>operation date</th>
     <th>cash value</th>
     <th>account id</th>
-
     </thead>
     <tbody>
-    <c:forEach items="${historyOperation}" var="historyOperation">
         <tr>
             <td><c:out value="${historyOperation.id}"/></td>
             <td><c:out value="${historyOperation.operationType}"/></td>
@@ -27,9 +25,8 @@
             <td><c:out value="${historyOperation.operationDate}"/></td>
             <td><c:out value="${historyOperation.cashValue}"/></td>
             <td><c:out value="${historyOperation.account.id}"/></td>
-
         </tr>
-    </c:forEach>
+
     </tbody>
 </table>
 </body>

@@ -1,7 +1,7 @@
 package pl.coderslab.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class HistoryOperation {
@@ -18,15 +18,22 @@ public class HistoryOperation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String operationType;
-    private String category;
-    private String subcategory;
+    @ManyToOne
+    @JoinColumn
+    @NotNull
+    private Categories category;
+    @ManyToOne
+    @JoinColumn
+    @NotNull
+    private Subcategories subcategory;
     private String operationDate;
     private double cashValue;
     @ManyToOne
     @JoinColumn(name = "accountId")
+    @NotNull
     private AccountDetails account;
 
-    public HistoryOperation(long id, String operationType, String category, String subcategory, String operationDate, double cashValue, AccountDetails account) {
+    public HistoryOperation(long id, String operationType, @NotNull Categories category, Subcategories subcategory, String operationDate, double cashValue, AccountDetails account) {
         this.id = id;
         this.operationType = operationType;
         this.category = category;
@@ -56,19 +63,19 @@ public class HistoryOperation {
         this.operationType = operationType;
     }
 
-    public String getCategory() {
+    public @NotNull Categories getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(@NotNull Categories category) {
         this.category = category;
     }
 
-    public String getSubcategory() {
+    public Subcategories getSubcategory() {
         return subcategory;
     }
 
-    public void setSubcategory(String subcategory) {
+    public void setSubcategory(Subcategories subcategory) {
         this.subcategory = subcategory;
     }
 

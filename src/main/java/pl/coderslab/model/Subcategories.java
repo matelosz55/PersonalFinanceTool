@@ -37,4 +37,12 @@ public class Subcategories {
     public void setSubcategory(String subcategory) {
         this.subcategory = subcategory;
     }
+
+    @Override
+    public String toString() {
+        return "Subcategories{" +
+                "id=" + id +
+                ", subcategory='" + subcategory + '\'' +
+                '}';
+    }
 }

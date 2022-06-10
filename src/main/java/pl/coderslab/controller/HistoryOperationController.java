@@ -3,12 +3,11 @@ package pl.coderslab.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.*;
 import pl.coderslab.repository.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,8 +40,8 @@ public class HistoryOperationController {
         List<Categories> categories = categoryRepository.findAll();
         List<Subcategories> subcategories = subcategoryRepository.findAll();
         model.addAttribute("accounts",accounts);
-        model.addAttribute("subcategory",subcategories);
-        model.addAttribute("category",categories);
+        model.addAttribute("subcategories",subcategories);
+        model.addAttribute("categories",categories);
         return "/historyOperations/save";
     }
 
@@ -54,4 +53,20 @@ public class HistoryOperationController {
         historyOperationsRepository.save(historyOperation);
         return "redirect:all";
     }
+
+    @GetMapping("/get/{id}")
+    public String getOne(Model model, @PathVariable long id){
+        model.addAttribute("historyOperation",historyOperationsRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+        return "/historyOperations/getone";
+    }
+
+    @GetMapping("delete/{id}")
+    public String delete(Model model, @PathVariable long id){
+        historyOperationsRepository.deleteById(id);
+        List<HistoryOperation> historyOperations = historyOperationsRepository.findAll();
+        model.addAttribute("historyOperations",historyOperations);
+        return "/historyOperations/all";
+    }
+
+
 }

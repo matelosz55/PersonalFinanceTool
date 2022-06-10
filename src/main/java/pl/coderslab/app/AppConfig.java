@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.coderslab.converter.AccountConverter;
+import pl.coderslab.converter.CategoryConverter;
+import pl.coderslab.converter.SubcategoryConverter;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.Locale;
@@ -66,7 +70,27 @@ public class AppConfig implements WebMvcConfigurer {
         return localeResolver;
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
 
+        registry.addConverter(getAccountConverter());
+        registry.addConverter(getCategoryConverter());
+        registry.addConverter(getSubcategoryConverter());
+    }
+    @Bean
+    public AccountConverter getAccountConverter() {
+        return new AccountConverter();
+    }
+
+    @Bean
+    public CategoryConverter getCategoryConverter() {
+        return new CategoryConverter();
+    }
+
+    @Bean
+    public SubcategoryConverter getSubcategoryConverter() {
+        return new SubcategoryConverter();
+    }
 
 
 }

@@ -50,8 +50,9 @@ public class UserController {
         userRepository.save(user);
         AccountDetails accountDetails = new AccountDetails();
         accountDetails.setAccountValue(0);
-        accountDetails.setUserId(user);
         accountDetailsRepository.save(accountDetails);
+        user.setAccount(accountDetails);
+        userRepository.save(user);
         return "redirect:all";
     }
 
@@ -64,7 +65,10 @@ public class UserController {
     @GetMapping("delete/{id}")
     public String delete(Model model, @PathVariable long id){
         userRepository.deleteById(id);
+        accountDetailsRepository.deleteById(id);
         List<User> users = userRepository.findAll();
+        List<AccountDetails> accountDetails = accountDetailsRepository.findAll();
+        model.addAttribute("account",accountDetails);
         model.addAttribute("user",users);
         return "/users/all";
     }

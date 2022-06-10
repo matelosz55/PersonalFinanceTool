@@ -13,6 +13,7 @@
     <th>last name</th>
     <th>email</th>
     <th>password</th>
+    <th>account</th>
     </thead>
     <tbody>
 
@@ -22,6 +23,7 @@
             <td><c:out value="${user.lastName}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.password}"/></td>
+            <td><c:out value="${user.account}"/></td>
         </tr>
 
     </tbody>

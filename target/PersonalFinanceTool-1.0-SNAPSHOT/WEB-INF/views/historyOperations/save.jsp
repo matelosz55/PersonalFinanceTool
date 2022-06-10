@@ -16,18 +16,20 @@
         </select>
     </div>
     <div>
-        <select name="category">
-            <c:forEach items="${category}" var="category">
-                <option value="${category.id}">${category.category}</option>
-            </c:forEach>
-        </select>
+        <label> Category
+            <form:select itemValue="id" itemLabel="id"
+                         path="category.id" items="${categories}"/>
+
+
+        </label>
     </div>
     <div>
-        <select name="subcategory">
-            <c:forEach items="${subcategory}" var="subcategory">
-                <option value="${subcategory.id}">${subcategory.subcategory}</option>
-            </c:forEach>
-        </select>
+        <label> Subcategory
+            <form:select itemValue="id" itemLabel="id"
+                         path="subcategory.id" items="${subcategories}"/>
+
+
+        </label>
     </div>
     <div>
         <label for="operationDate">Operation Date</label>
@@ -39,11 +41,15 @@
         <form:input path="cashValue" id="cashValue" type="number"/>
         <form:errors path="cashValue"/>
     </div>
-    <select name="account">
-        <c:forEach items="${accounts}" var="account">
-            <option value="${account}">${account.id}</option>
-        </c:forEach>
-    </select>
+    <div>
+        <label> Account id
+        <form:select itemValue="id" itemLabel="id"
+        path="account.id" items="${accounts}"/>
+
+
+        </label>
+
+    </div>
     <div>
         <input type="submit">
     </div>

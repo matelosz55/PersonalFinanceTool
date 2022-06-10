@@ -1,6 +1,7 @@
 package pl.coderslab.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
@@ -16,17 +17,20 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    @OneToOne
+    @JoinColumn(name = "accountValue")
+    private AccountDetails account;
 
-    public User(long id, String firstName, String lastName, String email, String password) {
+    public User() {
+    }
+
+    public User(long id, String firstName, String lastName, String email, String password, AccountDetails account) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-    }
-
-    public User(){
-
+        this.account = account;
     }
 
     public long getId() {
@@ -69,6 +73,14 @@ public class User {
         this.password = password;
     }
 
+    public AccountDetails getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountDetails account) {
+        this.account = account;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -77,6 +89,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", account=" + account +
                 '}';
     }
 }
