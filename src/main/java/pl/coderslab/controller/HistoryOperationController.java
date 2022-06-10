@@ -8,6 +8,7 @@ import pl.coderslab.model.*;
 import pl.coderslab.repository.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -46,10 +47,20 @@ public class HistoryOperationController {
     }
 
     @PostMapping("/save")
+    @Transactional
     public String getForm(@Valid final HistoryOperation historyOperation, final BindingResult validationResult){
         if(validationResult.hasErrors()){
             return "/historyOperations/save";
         }
+        Double value = historyOperation.getCashValue();
+        Long id = historyOperation.getAccount().getId();
+        AccountDetails account = accountDetailsRepository.getOne(id);
+        if (historyOperation.getOperationType().equals("add_funds")){
+            account.setAccountValue(account.getAccountValue() + value);
+        } else {
+            account.setAccountValue(account.getAccountValue() - value);
+        }
+        accountDetailsRepository.save(account);
         historyOperationsRepository.save(historyOperation);
         return "redirect:all";
     }

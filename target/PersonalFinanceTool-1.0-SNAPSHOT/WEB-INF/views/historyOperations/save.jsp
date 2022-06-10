@@ -17,7 +17,7 @@
     </div>
     <div>
         <label> Category
-            <form:select itemValue="id" itemLabel="id"
+            <form:select itemValue="id" itemLabel="category"
                          path="category.id" items="${categories}"/>
 
 
@@ -25,7 +25,7 @@
     </div>
     <div>
         <label> Subcategory
-            <form:select itemValue="id" itemLabel="id"
+            <form:select itemValue="id" itemLabel="subcategory"
                          path="subcategory.id" items="${subcategories}"/>
 
 

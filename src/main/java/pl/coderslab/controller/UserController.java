@@ -14,6 +14,7 @@ import pl.coderslab.repository.UserRepository;
 
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -63,13 +64,14 @@ public class UserController {
     }
 
     @GetMapping("delete/{id}")
+    @Transactional
     public String delete(Model model, @PathVariable long id){
-        userRepository.deleteById(id);
-        accountDetailsRepository.deleteById(id);
         List<User> users = userRepository.findAll();
-        List<AccountDetails> accountDetails = accountDetailsRepository.findAll();
-        model.addAttribute("account",accountDetails);
-        model.addAttribute("user",users);
+        model.addAttribute("users",users);
+        User user = userRepository.getOne(id);
+        accountDetailsRepository.deleteById(user.getAccount().getId());
+        userRepository.deleteById(id);
+
         return "/users/all";
     }
 
