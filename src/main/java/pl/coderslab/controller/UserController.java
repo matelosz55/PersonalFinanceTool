@@ -71,7 +71,7 @@ public class UserController {
         List<User> users = userRepository.findAll();
         model.addAttribute("users",users);
         User user = userRepository.getOne(id);
-        //accountDetailsRepository.deleteById(user.getAccount().getId());
+        accountDetailsRepository.deleteById(user.getAccount().getId());
         userRepository.deleteById(id);
 
         return "/users/all";

@@ -2,10 +2,6 @@ const operationType = document.getElementsByTagName("select")[0];
 const category = document.getElementsByTagName("div")[1];
 const subcategory = document.getElementsByTagName("div")[2];
 
-
-
-
-
     if (operationType.value === "add_funds") {
         category.classList.add("hidden");
         subcategory.classList.add("hidden");
@@ -33,6 +29,4 @@ operationType.addEventListener("change", () => {
         category.classList.remove("hidden");
         subcategory.classList.remove("hidden");
     }
-
-
 });

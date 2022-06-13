@@ -1,5 +1,8 @@
 package pl.coderslab.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +20,8 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    @OneToOne(cascade =  CascadeType.REMOVE)
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "accountValue")
     private AccountDetails account;
 
