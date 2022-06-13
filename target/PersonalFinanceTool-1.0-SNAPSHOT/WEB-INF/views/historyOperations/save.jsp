@@ -6,24 +6,26 @@
 <html>
 <head>
     <title>Add new operation</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/CSS/styles.css">
 </head>
 <body>
 <form:form method="post" modelAttribute="historyOperation">
-    <div>
+    <div class="operationType">
         <select name ="operationType">
             <option value="add_funds">Add funds</option>
             <option value="buy_sth">Pay for sth</option>
         </select>
     </div>
-    <div>
+    <div class="category">
         <label> Category
             <form:select itemValue="id" itemLabel="category"
                          path="category.id" items="${categories}"/>
 
 
+
         </label>
     </div>
-    <div>
+    <div class="subcategory">
         <label> Subcategory
             <form:select itemValue="id" itemLabel="subcategory"
                          path="subcategory.id" items="${subcategories}"/>
@@ -53,6 +55,7 @@
     <div>
         <input type="submit">
     </div>
+    <script src="${pageContext.request.contextPath}/resources/JS/operations.js"></script>
     <form:errors path="*"/>
 </form:form>
 </body>

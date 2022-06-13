@@ -34,6 +34,13 @@ public class CategoryController {
     @GetMapping("/save")
     public String save(Model model){
         model.addAttribute("category",new Categories());
+
+        List<Categories> categories1 = categoryRepository.findAll();
+        if (categories1.size() == 0) {
+            Categories categories = new Categories();
+            categories.setCategory("New Funds");
+            categoryRepository.save(categories);
+        }
         return "/category/save";
     }
 

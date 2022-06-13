@@ -28,7 +28,7 @@ public class HistoryOperation {
     private Subcategories subcategory;
     private String operationDate;
     private double cashValue;
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.REMOVE)
     @JoinColumn(name = "accountId")
     @NotNull
     private AccountDetails account;

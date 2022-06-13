@@ -28,28 +28,28 @@ public class HistoryOperationController {
     }
 
     @GetMapping("/all")
-    public String showExpenses(Model model){
+    public String showExpenses(Model model) {
         List<HistoryOperation> historyOperations = historyOperationsRepository.findAll();
         model.addAttribute("historyOperation", historyOperations);
         return "/historyOperations/all";
     }
 
     @GetMapping("/save")
-    public String save(Model model){
-        model.addAttribute("historyOperation",new HistoryOperation());
+    public String save(Model model) {
+        model.addAttribute("historyOperation", new HistoryOperation());
         List<AccountDetails> accounts = accountDetailsRepository.findAll();
         List<Categories> categories = categoryRepository.findAll();
         List<Subcategories> subcategories = subcategoryRepository.findAll();
-        model.addAttribute("accounts",accounts);
-        model.addAttribute("subcategories",subcategories);
-        model.addAttribute("categories",categories);
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("subcategories", subcategories);
+        model.addAttribute("categories", categories);
         return "/historyOperations/save";
     }
 
     @PostMapping("/save")
     @Transactional
-    public String getForm(@Valid final HistoryOperation historyOperation, final BindingResult validationResult){
-        if(validationResult.hasErrors()){
+    public String getForm(@Valid final HistoryOperation historyOperation, final BindingResult validationResult) {
+        if (validationResult.hasErrors()) {
             return "/historyOperations/save";
         }
         Double value = historyOperation.getCashValue();
@@ -66,16 +66,16 @@ public class HistoryOperationController {
     }
 
     @GetMapping("/get/{id}")
-    public String getOne(Model model, @PathVariable long id){
-        model.addAttribute("historyOperation",historyOperationsRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+    public String getOne(Model model, @PathVariable long id) {
+        model.addAttribute("historyOperation", historyOperationsRepository.findById(id).orElseThrow(EntityNotFoundException::new));
         return "/historyOperations/getone";
     }
 
     @GetMapping("delete/{id}")
-    public String delete(Model model, @PathVariable long id){
+    public String delete(Model model, @PathVariable long id) {
         historyOperationsRepository.deleteById(id);
         List<HistoryOperation> historyOperations = historyOperationsRepository.findAll();
-        model.addAttribute("historyOperations",historyOperations);
+        model.addAttribute("historyOperations", historyOperations);
         return "/historyOperations/all";
     }
 

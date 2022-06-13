@@ -17,7 +17,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    @OneToOne
+    @OneToOne(cascade =  CascadeType.REMOVE)
     @JoinColumn(name = "accountValue")
     private AccountDetails account;
 
