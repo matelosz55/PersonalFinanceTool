@@ -55,10 +55,13 @@ public class HistoryOperationController {
         Double value = historyOperation.getCashValue();
         Long id = historyOperation.getAccount().getId();
         AccountDetails account = accountDetailsRepository.getOne(id);
+        double accountValue = account.getAccountValue();
         if (historyOperation.getOperationType().equals("add_funds")){
             account.setAccountValue(account.getAccountValue() + value);
-        } else {
+        } else if(accountValue >= value){
             account.setAccountValue(account.getAccountValue() - value);
+        } else {
+            return "/historyOperations/nomoney";
         }
         accountDetailsRepository.save(account);
         historyOperationsRepository.save(historyOperation);

@@ -5,7 +5,7 @@
     <title>Add new user</title>
 </head>
 <body>
-<form:form method="post" modelAttribute="user">
+<form:form method="post" autocomplete="off" modelAttribute="user">
     <div>
         <label for="firstName">First Name</label>
         <form:input path="firstName" id="firstName" type="text"/>

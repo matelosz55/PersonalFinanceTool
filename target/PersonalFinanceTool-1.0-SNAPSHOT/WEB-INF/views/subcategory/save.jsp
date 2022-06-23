@@ -5,7 +5,7 @@
     <title>Add category</title>
 </head>
 <body>
-<form:form method="post" modelAttribute="subcategory">
+<form:form method="post" autocomplete="off" modelAttribute="subcategory">
     <div>
         <label for="subcategory">Add subcategory</label>
         <form:input path="subcategory" id="subcategory" type="text"/>

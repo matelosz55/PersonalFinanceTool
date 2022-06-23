@@ -4,13 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.model.Categories;
+import pl.coderslab.model.HistoryOperation;
 import pl.coderslab.model.Subcategories;
+import pl.coderslab.model.User;
+import pl.coderslab.repository.HistoryOperationsRepository;
 import pl.coderslab.repository.SubcategoryRepository;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,9 +23,11 @@ import java.util.List;
 public class SubcategoryController {
 
     private final SubcategoryRepository subcategoryRepository;
+    private final HistoryOperationsRepository historyOperationsRepository;
 
-    public SubcategoryController(SubcategoryRepository subcategoryRepository) {
+    public SubcategoryController(SubcategoryRepository subcategoryRepository, HistoryOperationsRepository historyOperationsRepository) {
         this.subcategoryRepository = subcategoryRepository;
+        this.historyOperationsRepository = historyOperationsRepository;
     }
 
 
@@ -29,6 +36,19 @@ public class SubcategoryController {
         List<Subcategories> subcategories = subcategoryRepository.findAll();
         model.addAttribute("subcategory", subcategories);
         return "/subcategory/all";
+    }
+
+    @GetMapping("/allbyid/{id}/{id2}")
+    public String showAll(Model model, @PathVariable long id, @PathVariable long id2){
+        List<HistoryOperation> historyOperations = historyOperationsRepository.findAll();
+        List<HistoryOperation> finalHistoryOperation = new ArrayList<>();
+        for (int i =0; i < historyOperations.size(); i++){
+            if(id == historyOperations.get(i).getAccount().getId() && id2 == historyOperations.get(i).getSubcategory().getId()){
+                finalHistoryOperation.add(historyOperations.get(i));
+            }
+        }
+        model.addAttribute("finalHistoryOperation", finalHistoryOperation);
+        return "/subcategory/allbyid";
     }
 
     @GetMapping("/save")
