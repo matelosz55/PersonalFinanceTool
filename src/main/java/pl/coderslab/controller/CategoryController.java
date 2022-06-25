@@ -14,6 +14,7 @@ import pl.coderslab.repository.CategoryRepository;
 import pl.coderslab.repository.HistoryOperationsRepository;
 import pl.coderslab.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,14 @@ public class CategoryController {
         }
         categoryRepository.save(category);
         return "redirect:all";
+    }
+
+    @GetMapping("delete/{id}")
+    @Transactional
+    public String delete(Model model, @PathVariable long id){
+        categoryRepository.deleteById(id);
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("category", categories);
+        return "/category/all";
     }
 }

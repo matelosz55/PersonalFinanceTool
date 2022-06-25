@@ -68,12 +68,11 @@ public class UserController {
     @GetMapping("delete/{id}")
     @Transactional
     public String delete(Model model, @PathVariable long id){
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users",users);
         User user = userRepository.getOne(id);
         accountDetailsRepository.deleteById(user.getAccount().getId());
         userRepository.deleteById(id);
-
+        List<User> users = userRepository.findAll();
+        model.addAttribute("user",users);
         return "/users/all";
     }
 
