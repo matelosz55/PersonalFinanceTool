@@ -75,10 +75,21 @@ public class HistoryOperationController {
     }
 
     @GetMapping("delete/{id}")
+    @Transactional
     public String delete(Model model, @PathVariable long id) {
+        HistoryOperation historyOperation = historyOperationsRepository.getOne(id);
+        Double value = historyOperation.getCashValue();
+        Long accountId = historyOperation.getAccount().getId();
+        AccountDetails account = accountDetailsRepository.getOne(accountId);
+        double accountValue = account.getAccountValue();
+        if (historyOperation.getOperationType().equals("add_funds")){
+            account.setAccountValue(account.getAccountValue() - value);
+        } else if(accountValue >= value){
+            account.setAccountValue(account.getAccountValue() + value);
+        }
         historyOperationsRepository.deleteById(id);
         List<HistoryOperation> historyOperations = historyOperationsRepository.findAll();
-        model.addAttribute("historyOperations", historyOperations);
+        model.addAttribute("historyOperation", historyOperations);
         return "/historyOperations/all";
     }
 
