@@ -10,6 +10,7 @@ import pl.coderslab.repository.*;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -56,9 +57,9 @@ public class HistoryOperationController {
         Long id = historyOperation.getAccount().getId();
         AccountDetails account = accountDetailsRepository.getOne(id);
         double accountValue = account.getAccountValue();
-        if (historyOperation.getOperationType().equals("add_funds")){
+        if (historyOperation.getOperationType().equals("add_funds")) {
             account.setAccountValue(account.getAccountValue() + value);
-        } else if(accountValue >= value){
+        } else if (accountValue >= value) {
             account.setAccountValue(account.getAccountValue() - value);
         } else {
             return "/historyOperations/nomoney";
@@ -70,8 +71,15 @@ public class HistoryOperationController {
 
     @GetMapping("/get/{id}")
     public String getOne(Model model, @PathVariable long id) {
-        model.addAttribute("historyOperation", historyOperationsRepository.findById(id).orElseThrow(EntityNotFoundException::new));
-        return "/historyOperations/getone";
+        List<HistoryOperation> historyOperationsPrimary = historyOperationsRepository.findAll();
+        List<HistoryOperation> historyOperations = new ArrayList<>();
+        for (int i = 0; i < historyOperationsPrimary.size(); i++) {
+            if (historyOperationsPrimary.get(i).getAccount().getId() == id) {
+                historyOperations.add(historyOperationsPrimary.get(i));
+            }
+        }
+        model.addAttribute("historyOperation", historyOperations);
+        return "/historyOperations/all";
     }
 
     @GetMapping("delete/{id}")
@@ -82,9 +90,9 @@ public class HistoryOperationController {
         Long accountId = historyOperation.getAccount().getId();
         AccountDetails account = accountDetailsRepository.getOne(accountId);
         double accountValue = account.getAccountValue();
-        if (historyOperation.getOperationType().equals("add_funds")){
+        if (historyOperation.getOperationType().equals("add_funds")) {
             account.setAccountValue(account.getAccountValue() - value);
-        } else if(accountValue >= value){
+        } else if (accountValue >= value) {
             account.setAccountValue(account.getAccountValue() + value);
         }
         historyOperationsRepository.deleteById(id);
